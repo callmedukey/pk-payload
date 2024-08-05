@@ -3,13 +3,12 @@ import path from "path";
 import { payloadCloud } from "@payloadcms/plugin-cloud";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { webpackBundler } from "@payloadcms/bundler-webpack";
-
 import { buildConfig } from "payload/config";
-
 import Users from "./collections/Users";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { Page } from "./collections/pages";
 import { Media } from "./collections/media";
+import { Faq } from "./collections/faq";
 
 export default buildConfig({
   admin: {
@@ -17,7 +16,7 @@ export default buildConfig({
     bundler: webpackBundler(),
   },
   editor: lexicalEditor({}),
-  collections: [Users, Page, Media],
+  collections: [Users, Page, Media, Faq],
   typescript: {
     outputFile: path.resolve(__dirname, "payload-types.ts"),
   },
@@ -30,4 +29,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI,
     },
   }),
+  i18n: {
+    fallbackLng: "ko",
+  },
 });
