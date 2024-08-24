@@ -19,9 +19,39 @@ const start = async () => {
     },
   });
 
+  // Add your own express routes here 
 
+  app.get("/custom/pages", async (req, res) => {
 
-  // Add your own express routes here
+    const response = await payload.find({
+      collection: "pages",
+      limit: 300,
+    });
+
+    response.docs.forEach((doc) => {
+
+      delete doc.content;
+    });
+
+    res.json(response);
+  });
+
+  app.get("/custom/pages/:tag", async (req, res) => {
+    const response = await payload.find({
+      collection: "pages",
+      where: {
+        tags: {
+         in: [req.params?.tag]
+        },
+      },
+      limit:300
+    });
+    response.docs.forEach((doc) => {
+      delete doc.content;
+    });
+
+    res.json(response);
+  });
 
   app.listen(3000);
 };

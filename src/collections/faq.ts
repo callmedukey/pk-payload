@@ -1,8 +1,11 @@
 import { CollectionConfig } from "payload/types";
-import formatSlug from "../utils/formatSlug";
+
 
 export const Faq: CollectionConfig = {
   slug: "faq",
+  access: {
+    read: () => true,
+  },
   labels: {
     singular: "Q&A",
     plural: "Q&A",

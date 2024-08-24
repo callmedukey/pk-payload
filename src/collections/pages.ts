@@ -6,8 +6,10 @@ export const Page: CollectionConfig = {
   labels: {
     singular: "페이지",
     plural: "페이지",
+  }, 
+  access: {
+    read: () => true,
   },
-  
   fields: [
     {
       name: "title",
@@ -29,6 +31,7 @@ export const Page: CollectionConfig = {
       admin:{
         position: "sidebar",
       },
+     
       hooks: {
         beforeValidate: [
           formatSlug("title"),
@@ -46,30 +49,25 @@ export const Page: CollectionConfig = {
     },
     {
       name: "thumbnail",
-      type: "upload",
       relationTo: "media",
+      type: "upload",
       label: "썸네일",
       required: true,
     },
-    
+    {
+      name: "tags",
+      type: "relationship",
+      relationTo: "tag",
+      label: "태그",
+      hasMany: true,
+      maxDepth: 1,
+      
+    },
     {
       name: "content",
-      type: "array",
+      type: "richText",
       label: "내용",
-      minRows: 1,
-      fields: [
-        {
-          name: "text",
-          type: "textarea",
-          label: "텍스트",
-        },
-        {
-          name: "image",
-          type: "upload",
-          relationTo: "media",
-          label: "이미지",
-        },
-      ],
+      required: true
     },
   ],
 };
